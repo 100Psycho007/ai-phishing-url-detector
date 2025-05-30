@@ -16,7 +16,9 @@ We use a machine learning model trained on examples of phishing and non-phishing
 - Figma or Canva (for UI design)
 
 ## 📁 Project Structure
-
+/model → ML training screenshots, exported model
+/app → No-code web app link & screenshots
+/docs → Project explanation (optional)
 
 ## 🎯 Features
 - No-code machine learning
