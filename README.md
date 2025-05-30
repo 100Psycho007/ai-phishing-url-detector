@@ -24,7 +24,7 @@ We use a machine learning model trained on examples of phishing and non-phishing
 - Easy web interface for testing URLs
 
 ## 👨‍💻 Author
-[Your Name]  
+Tejas N  
 [LinkedIn](www.linkedin.com/in/tejas-n-457891368) • [GitHub](https://github.com/100Psycho007/)
 
 ## 📸 Screenshots
