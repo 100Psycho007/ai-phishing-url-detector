@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phishing Detector AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: #f2f4f8;
+    }
+    h1 {
+      color: #333;
+    }
+    input {
+      margin-top: 20px;
+    }
+    img {
+      margin-top: 20px;
+      width: 320px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Phishing Screenshot Detector</h1>
+  <input type="file" accept="image/*" id="upload" />
+  <div id="result"></div>
+  <img id="preview" />
+
+  <script type="text/javascript">
+    const URL = "./model/";
+    let model, maxPredictions;
+
+    async function init() {
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+      model = await tmImage.load(modelURL, metadataURL);
+      maxPredictions = model.getTotalClasses();
+    }
+
+    init();
+
+    document.getElementById("upload").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      const image = document.getElementById("preview");
+      image.src = URL.createObjectURL(file);
+      await image.decode();
+
+      const prediction = await model.predict(image);
+      prediction.sort((a, b) => b.probability - a.probability);
+
+      const result = document.getElementById("result");
+      result.innerText = `Prediction: ${prediction[0].className} (${(prediction[0].probability * 100).toFixed(2)}%)`;
+    });
+  </script>
+</body>
+</html>
