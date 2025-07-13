@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>Phishing Screenshot Detector</title>
-  <!-- Correct CDN links -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
   <style>
@@ -13,12 +12,8 @@
       background-color: #f4f6f8;
       padding: 2rem;
     }
-    h1 {
-      color: #2c3e50;
-    }
-    input {
-      margin-top: 1rem;
-    }
+    h1 { color: #2c3e50; }
+    input { margin-top: 1rem; }
     img {
       margin-top: 1rem;
       width: 320px;
@@ -38,7 +33,6 @@
 
   <h1>🛡️ Phishing Screenshot Detector</h1>
   <p>Upload a screenshot with a URL to classify as <strong>Phishing</strong> or <strong>Safe</strong>.</p>
-
   <input type="file" accept="image/*" id="upload" />
   <br />
   <img id="preview" alt="Image preview will appear here" />
