@@ -1,38 +1,112 @@
-# ai-phishing-url-detector
-A no-code machine learning project that detects phishing URLs using an AI model trained via Google AutoML or Teachable Machine.
+# 🛡️ AI Phishing URL Detector (v1)
 
-# AI-Powered Phishing URL Detector 🛡️🔗
-
-This project uses a no-code machine learning model to detect whether a given URL is likely to be **phishing** or **safe**.
-
-## 🚀 How It Works
-We use a machine learning model trained on examples of phishing and non-phishing URLs. The trained model is integrated with a no-code frontend (Bubble.io) to allow users to input a URL and get instant results.
-
-## 🔧 Tools Used
-- [Google AutoML](https://cloud.google.com/automl) or [Teachable Machine](https://teachablemachine.withgoogle.com)
-- [Bubble.io](https://bubble.io) (for frontend)
-- GitHub (for version control)
-- Replit (for optional backend API)
-- Figma or Canva (for UI design)
-
-## 📁 Project Structure
-/model → ML training screenshots, exported model
-/app → No-code web app link & screenshots
-/docs → Project explanation (optional)
-
-## 🎯 Features
-- No-code machine learning
-- Real-world cyber threat detection
-- Easy web interface for testing URLs
-
-## 👨‍💻 Author
-Tejas N  
-[LinkedIn](www.linkedin.com/in/tejas-n-457891368) • [GitHub](https://github.com/100Psycho007/)
-
-## 📸 Screenshots
-Add here once the UI is ready.
+> A browser-based phishing detector that uses image-based classification via [Teachable Machine](https://teachablemachine.withgoogle.com/). Upload a screenshot of a website, and this tool will predict if it's **Phishing** or **Safe**.
 
 ---
 
-## 🌐 Try the App (Coming Soon)
-_Link to the live web app will be added here once deployed._
+## 📌 Live Demo
+
+👉 [Visit the Live Site](https://100psycho007.github.io/ai-phishing-url-detector/)
+
+---
+
+## 📸 How It Works
+
+1. Upload a screenshot containing a visible website URL.
+2. A pre-trained MobileNet model (via Teachable Machine) classifies it as:
+
+   * ✅ Safe
+   * 🚫 Phishing
+3. Results are displayed instantly on the webpage.
+
+> **Note:** Accuracy depends on the training dataset. This version is a proof-of-concept.
+
+---
+
+## ⚙️ Tech Stack
+
+* HTML, CSS, JavaScript
+* TensorFlow\.js
+* Teachable Machine (MobileNet)
+* GitHub Pages for deployment
+
+---
+
+## 🗂️ Folder Structure
+
+```
+├── index.html          # UI code
+├── model/              # Exported TM model (model.json, metadata.json, weights.bin)
+├── docs/               # 📄 Documentation & screenshots (to be added)
+├── app/                # (optional) alternate versioning space for future refactor
+└── README.md           # You're here
+```
+
+---
+
+## 📁 docs/
+
+| File             | Description                          |
+| ---------------- | ------------------------------------ |
+| `screenshots/`   | UI and sample result images          |
+| `model-info.md`  | Notes on training params and classes |
+| `walkthrough.md` | Simple usage guide with visuals      |
+
+> 📝 *To be added by contributor*
+
+---
+
+## 🚀 How to Use
+
+1. Go to the [Live Demo](https://100psycho007.github.io/ai-phishing-url-detector/)
+2. Upload a screenshot image
+3. See the prediction result below the image
+
+---
+
+## 🧪 Example Screenshots
+
+📍 *(Place these in `docs/screenshots/`)*
+
+* Safe site prediction ✅
+* Phishing site prediction 🚫
+
+---
+
+## 📈 Accuracy
+
+This version uses a small dataset with basic image classification.
+
+| Model Type | Source            | Notes                                                   |
+| ---------- | ----------------- | ------------------------------------------------------- |
+| MobileNet  | Teachable Machine | Lightweight, fast, less accurate for fine-grained tasks |
+
+### Known Limitations
+
+* May misclassify clever phishing designs
+* Cannot analyze URL text deeply
+* Only works with visible screenshots
+
+---
+
+## 📦 License
+
+[MIT License](LICENSE)
+
+---
+
+## 🚧 What's Next (v2 Preview)
+
+A smarter hybrid phishing detector with:
+
+* ✅ OCR (Tesseract.js) to extract URLs
+* ✅ GPT/OpenRouter AI check
+* ✅ VirusTotal API verification
+
+> Follow progress in the upcoming `smart-phishing-detector` repo.
+
+---
+
+## 👤 Author
+
+**[100Psycho007](https://github.com/100Psycho007)** – Final year BSc Botany + Zoology student interested in AI x Cybersecurity.
