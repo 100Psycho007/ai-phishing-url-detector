@@ -1,37 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Phishing Detector AI</title>
+  <meta charset="UTF-8">
+  <title>Phishing Screenshot Detector</title>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
+      background: #f4f6f8;
       padding: 2rem;
-      background: #f2f4f8;
     }
     h1 {
-      color: #333;
+      color: #2c3e50;
     }
     input {
-      margin-top: 20px;
+      margin-top: 1rem;
     }
     img {
-      margin-top: 20px;
-      width: 320px;
+      margin-top: 1rem;
+      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     #result {
-      margin-top: 20px;
-      font-size: 1.2em;
+      margin-top: 1rem;
+      font-size: 1.3rem;
       font-weight: bold;
+      color: #34495e;
+    }
+    footer {
+      margin-top: 2rem;
+      color: #7f8c8d;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <h1>Phishing Screenshot Detector</h1>
+
+  <h1>🛡️ Phishing Screenshot Detector</h1>
+  <p>Upload a screenshot of a URL or webpage to classify it as <b>Phishing</b> or <b>Safe</b>.</p>
+
   <input type="file" accept="image/*" id="upload" />
+  <div>
+    <img id="preview" src="#" alt="Preview will appear here" style="display: none;" />
+  </div>
   <div id="result"></div>
-  <img id="preview" />
+
+  <footer>
+    Built by <a href="https://github.com/100Psycho007" target="_blank">@100Psycho007</a>
+  </footer>
 
   <script type="text/javascript">
     const URL = "./model/";
@@ -50,14 +68,18 @@
       const file = event.target.files[0];
       const image = document.getElementById("preview");
       image.src = URL.createObjectURL(file);
+      image.style.display = "block";
       await image.decode();
 
       const prediction = await model.predict(image);
       prediction.sort((a, b) => b.probability - a.probability);
 
+      const top = prediction[0];
       const result = document.getElementById("result");
-      result.innerText = `Prediction: ${prediction[0].className} (${(prediction[0].probability * 100).toFixed(2)}%)`;
+
+      result.innerHTML = `🔍 Prediction: <strong>${top.className}</strong> (${(top.probability * 100).toFixed(2)}%)`;
     });
   </script>
+
 </body>
 </html>
