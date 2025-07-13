@@ -1,55 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Phishing Screenshot Detector</title>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
       text-align: center;
-      background: #f4f6f8;
-      padding: 2rem;
+      background-color: #f0f2f5;
+      padding: 2em;
     }
     h1 {
       color: #2c3e50;
+      font-size: 2rem;
     }
     input {
-      margin-top: 1rem;
+      margin-top: 1em;
     }
     img {
-      margin-top: 1rem;
-      width: 300px;
+      margin-top: 1em;
+      width: 320px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     #result {
-      margin-top: 1rem;
-      font-size: 1.3rem;
+      margin-top: 1.5em;
+      font-size: 1.2em;
       font-weight: bold;
-      color: #34495e;
-    }
-    footer {
-      margin-top: 2rem;
-      color: #7f8c8d;
-      font-size: 0.9rem;
+      color: #333;
     }
   </style>
 </head>
 <body>
 
   <h1>🛡️ Phishing Screenshot Detector</h1>
-  <p>Upload a screenshot of a URL or webpage to classify it as <b>Phishing</b> or <b>Safe</b>.</p>
+  <p>Upload a screenshot showing a URL. The AI will tell if it's <strong>Safe</strong> or <strong>Phishing</strong>.</p>
 
   <input type="file" accept="image/*" id="upload" />
-  <div>
-    <img id="preview" src="#" alt="Preview will appear here" style="display: none;" />
-  </div>
+  <br />
+  <img id="preview" style="display:none;" />
   <div id="result"></div>
-
-  <footer>
-    Built by <a href="https://github.com/100Psycho007" target="_blank">@100Psycho007</a>
-  </footer>
 
   <script type="text/javascript">
     const URL = "./model/";
@@ -76,10 +67,10 @@
 
       const top = prediction[0];
       const result = document.getElementById("result");
-
-      result.innerHTML = `🔍 Prediction: <strong>${top.className}</strong> (${(top.probability * 100).toFixed(2)}%)`;
+      result.innerHTML = `🔍 Prediction: <span style="color:${
+        top.className === "Phishing" ? "#e74c3c" : "#27ae60"
+      }">${top.className}</span> (${(top.probability * 100).toFixed(2)}%)`;
     });
   </script>
-
 </body>
 </html>
