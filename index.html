@@ -39,15 +39,16 @@
   <div id="result"></div>
 
   <script type="text/javascript">
-    const URLpath = "./model/";
-    let model, maxPredictions;
+   const URLpath = "./model/";
+let model, maxPredictions;
 
-    async function initModel() {
-      const modelURL = URLpath + "model.json";
-      const metadataURL = URLpath + "metadata.json";
-      model = await tmImage.load(modelURL, metadataURL);
-      maxPredictions = model.getTotalClasses();
-    }
+async function initModel() {
+  const modelURL = URLpath + "model.json";
+  const metadataURL = URLpath + "metadata.json";
+  model = await window.tmImage.load(modelURL, metadataURL); // <- FIXED HERE
+  maxPredictions = model.getTotalClasses();
+}
+
 
     initModel();
 
