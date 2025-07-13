@@ -3,30 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <title>Phishing Screenshot Detector</title>
+  <!-- Correct CDN links -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f0f2f5;
-      padding: 2em;
+      background-color: #f4f6f8;
+      padding: 2rem;
     }
     h1 {
       color: #2c3e50;
-      font-size: 2rem;
     }
     input {
-      margin-top: 1em;
+      margin-top: 1rem;
     }
     img {
-      margin-top: 1em;
+      margin-top: 1rem;
       width: 320px;
+      display: none;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     #result {
-      margin-top: 1.5em;
-      font-size: 1.2em;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #333;
     }
@@ -35,42 +37,51 @@
 <body>
 
   <h1>🛡️ Phishing Screenshot Detector</h1>
-  <p>Upload a screenshot showing a URL. The AI will tell if it's <strong>Safe</strong> or <strong>Phishing</strong>.</p>
+  <p>Upload a screenshot with a URL to classify as <strong>Phishing</strong> or <strong>Safe</strong>.</p>
 
   <input type="file" accept="image/*" id="upload" />
   <br />
-  <img id="preview" style="display:none;" />
+  <img id="preview" alt="Image preview will appear here" />
   <div id="result"></div>
 
   <script type="text/javascript">
-    const URL = "./model/";
+    const URLpath = "./model/";
     let model, maxPredictions;
 
-    async function init() {
-      const modelURL = URL + "model.json";
-      const metadataURL = URL + "metadata.json";
+    async function initModel() {
+      const modelURL = URLpath + "model.json";
+      const metadataURL = URLpath + "metadata.json";
       model = await tmImage.load(modelURL, metadataURL);
       maxPredictions = model.getTotalClasses();
     }
 
-    init();
+    initModel();
 
     document.getElementById("upload").addEventListener("change", async (event) => {
       const file = event.target.files[0];
+      if (!file) return;
+
       const image = document.getElementById("preview");
-      image.src = URL.createObjectURL(file);
-      image.style.display = "block";
-      await image.decode();
+      const resultBox = document.getElementById("result");
 
-      const prediction = await model.predict(image);
-      prediction.sort((a, b) => b.probability - a.probability);
+      try {
+        image.src = URL.createObjectURL(file);
+        image.style.display = "block";
+        await image.decode();
 
-      const top = prediction[0];
-      const result = document.getElementById("result");
-      result.innerHTML = `🔍 Prediction: <span style="color:${
-        top.className === "Phishing" ? "#e74c3c" : "#27ae60"
-      }">${top.className}</span> (${(top.probability * 100).toFixed(2)}%)`;
+        const predictions = await model.predict(image);
+        predictions.sort((a, b) => b.probability - a.probability);
+        const top = predictions[0];
+
+        resultBox.innerHTML = `🔍 Prediction: <strong style="color:${
+          top.className === "Phishing" ? "#e74c3c" : "#2ecc71"
+        }">${top.className}</strong> (${(top.probability * 100).toFixed(2)}%)`;
+      } catch (err) {
+        console.error("Prediction failed:", err);
+        resultBox.innerText = "⚠️ Failed to load model or predict.";
+      }
     });
   </script>
+
 </body>
 </html>
